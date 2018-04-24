@@ -13,6 +13,26 @@ public class SongDetail {
 
     private String href;
 
+    private String albumId;
+
+    private String playIds;
+
+    public String getPlayIds() {
+        return playIds;
+    }
+
+    public void setPlayIds(String playIds) {
+        this.playIds = playIds;
+    }
+
+    public String getAlbumId() {
+        return albumId;
+    }
+
+    public void setAlbumId(String albumId) {
+        this.albumId = albumId;
+    }
+
     public String getHref() {
         return href;
     }

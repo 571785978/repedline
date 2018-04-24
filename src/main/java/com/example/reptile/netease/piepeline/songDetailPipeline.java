@@ -18,10 +18,20 @@ public class songDetailPipeline implements Pipeline<songDetail> {
         String url = "http://music.163.com/song/media/outer/url?id="+songDetail.getId()+".mp3";
         SongDetail detail = new SongDetail();
         detail.setAlbum(songDetail.getAlbum());
+        detail.setName(songDetail.getName());
         detail.setId(songDetail.getId());
         detail.setHref(url);
         detail.setSinger(songDetail.getSinger());
         detail.setImg_url(songDetail.getImg_url());
-        neteaseMusicService.insertSong(detail);
+        String albumId = songDetail.getAlbumId().split("id=")[1];
+        detail.setAlbumId(albumId);
+        if(null != songDetail.getPlayListId()){
+            StringBuffer ids = new StringBuffer();
+            songDetail.getPlayListId().forEach(id -> {
+                ids.append(",").append(id.split("id=")[1]);
+            });
+            detail.setPlayIds(ids.toString().replaceFirst(",",""));
+            neteaseMusicService.insertSong(detail);
+        }
     }
 }

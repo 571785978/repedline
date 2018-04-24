@@ -18,7 +18,7 @@ public class PlayListEntrance {
                 //开启几个爬虫线程
                 .thread(1)
                 //单个爬虫每次抓取完一个请求后的间隔时间
-                .interval(200)
+                .interval(10)
                 .run();
     }
 

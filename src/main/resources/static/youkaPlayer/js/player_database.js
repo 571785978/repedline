@@ -42,9 +42,9 @@ var myPlaylist = new jPlayerPlaylist({
 var latest = [
     {
         title: "Fleur de lis",
-        artist: "Noicybino",
-        mp3: "http://music.163.com/song/media/outer/url?id=533079474.mp3",
-        poster: "http://p1.music.126.net/C3C4vPOMsTd_vX9Ccww06Q==/109951163117390906.jpg?param=130y130"
+        artist: "Lesser Matters",
+        mp3: "http://music.163.com/song/media/outer/url?id=19288288.mp3",
+        poster: "http://p1.music.126.net/Fg2rIU3r0jA681lJC4jLUA==/6633353651220266.jpg"
     },
     {
         title: "Dance, cherry blossoms!",
