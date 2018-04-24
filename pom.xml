@@ -4,13 +4,13 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.example</groupId>
-	<artifactId>my</artifactId>
+	<artifactId>repedline</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
     <modules>
     </modules>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 
-	<name>my</name>
+	<name>repedline</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
