@@ -1,5 +1,8 @@
 package com.example.reptile.netease.entity;
-public class PlayList {
+
+import java.io.Serializable;
+
+public class PlayList implements Serializable {
     private String id;
 
     private String url;

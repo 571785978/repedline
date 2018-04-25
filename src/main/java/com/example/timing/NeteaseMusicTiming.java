@@ -23,9 +23,9 @@ public class NeteaseMusicTiming {
      */
     @Scheduled(/*cron = "0 0 8 * * *"*/fixedRate = 1000*60*60*24)
     private void doReptileList(){
-        logger.info("------>开始执行网易云爬虫");
-        playListEntrance.doReptile();
-        logger.info("------>执行完成");
+//        logger.info("------>开始执行网易云爬虫");
+//        playListEntrance.doReptile();
+//        logger.info("------>执行完成");
     }
 
 

@@ -36,4 +36,11 @@ public class NeteaseMusicService {
         neteaseMusicDao.insertOrUpdateSong(songDetail);
     }
 
+    public List<PlayList> playListPage(int page,int limit){
+        return neteaseMusicDao.list(page,limit);
+    }
+    public int totalCountPlayList(){
+        return neteaseMusicDao.getTotalCountPlayList();
+    }
+
 }

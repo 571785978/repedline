@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>myTest</title>
+    <link rel="stylesheet" type="text/css" href="layui/css/layui.css" media="all"/>
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="layui/layui.js"></script>
+    <style type="text/css">
+        html,body{
+            overflow-y: hidden;
+        }
+        #demo01{
+            width: 100%;
+            height:100%;
+            overflow-y: auto;
+        }
+        #demo01 li{
+            display: inline-block;
+            width: 140px;
+            height: 188px;
+            overflow: hidden;
+            padding: 0 0 30px 50px;
+            line-height: 1.4;
+        }
+        .u-cover a{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-position: 0 0;
+        }
+        .layui-body{
+            left: 0px;
+        }
+        .layui-footer{
+            left: 0px !important;
+        }
+        .dec{
+            width: 100%;
+            height: 100%;
+        }
+       .dec a{
+           max-width: 100%;
+           height: 100%;
+           display: inline-block;
+       }
+        .player{
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-layout layui-layout-admin">
+    <!--頭部-->
+    <div class="layui-header">
+        <ul class="layui-nav" lay-filter="">
+            <li class="layui-nav-item"><a href="">歌单</a></li>
+            <li class="layui-nav-item layui-this"><a href="">所有单曲</a></li>
+            <!--<li class="layui-nav-item">
+                <a href="javascript:;">解决方案</a>
+                <dl class="layui-nav-child"> &lt;!&ndash; 二级菜单 &ndash;&gt;
+                    <dd><a href="">移动模块</a></dd>
+                    <dd><a href="">后台模版</a></dd>
+                    <dd><a href="">电商平台</a></dd>
+                </dl>
+            </li>-->
+        </ul>
+    </div>
+    <!--主體-->
+    <div class="layui-body">
+        <ul class="flow-default" id="demo01" ></ul>
+    </div>
+
+    <!--<div class="layui-side">
+        <div class="layui-side-scroll">
+            &lt;!&ndash; 左侧导航区域（可配合layui已有的垂直导航） &ndash;&gt;
+        </div>
+    </div>-->
+
+    <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        <div class="player">
+            <i class="layui-icon">&#xe652;</i>
+        </div>
+    </div>
+</div>
+<script>
+    //注意：导航 依赖 element 模块，否则无法进行功能性操作
+    layui.use('element', function () {
+        var element = layui.element;
+
+        //…
+    });
+
+    layui.use('flow', function(){
+        var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+        var flow = layui.flow;
+        flow.load({
+            elem: '#demo01' //流加载容器
+            ,scrollElem: '#demo01'
+            ,isAuto: true
+            ,isLazyimg: true
+            ,done: function(page, next){ //加载下一页
+                setTimeout(function(){
+                    var lis = [];
+                    $.get("/platListPage?limit=35&page="+page,function(res){
+                        res.data.forEach(function(item,index){
+                            var li = "<li><div class='u-cover'><img src='"+item.img_url+"'/>" +
+                                "<a title='"+item.title+"' href='"+item.url+"'></a></div>" +
+                                "<p class='dec'><a title='"+item.title+"' href='"+item.url+"'>"+item.title+"</a></p></li>";
+                            lis.push(li);
+                        })
+                        next(lis.join(''), page < res.count/12); //假设总页数为 6
+                    })
+                }, 500);
+            }
+        });
+    });
+</script>
+</body>
+</html>
