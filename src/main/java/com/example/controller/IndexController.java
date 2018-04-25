@@ -9,7 +9,7 @@ public class IndexController {
 
     @RequestMapping(value = "/")
     public String welcome(){
-        return "index.html";
+        return "music/index.html";
     }
 
 
