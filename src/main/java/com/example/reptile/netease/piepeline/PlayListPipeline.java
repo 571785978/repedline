@@ -25,7 +25,6 @@ public class PlayListPipeline implements Pipeline<SongList> {
     @Override
     public void process(SongList songList) {
         NeteaseMusicService neteaseMusicService = (NeteaseMusicService) SpringUtil.getBean("neteaseMusicService");
-        List<PlayList> list = new ArrayList<>();
         String webSite = "https://music.163.com";
         HttpRequest request = songList.getHttpRequest();
         songList.getList().stream().forEach(songLists -> {
@@ -36,12 +35,15 @@ public class PlayListPipeline implements Pipeline<SongList> {
                 music.setImg_url(detail.getImageUrl());
                 music.setTitle(detail.getTitle());
                 music.setUrl(webSite + detail.getUrl());
-                list.add(music);
+                NeteaseUtil.playLists.add(music);
                 SchedulerContext.into(request.subRequest(music.getUrl()));
             });
         });
-        neteaseMusicService.saveCloudMusic(list);
-        if(null != songList && ListUtils.isNotEmpty(list)){
+        if(NeteaseUtil.playLists.size() >=100){
+            neteaseMusicService.saveCloudMusic(NeteaseUtil.playLists);
+            NeteaseUtil.playLists.clear();
+        }
+        if(null != songList ){
             Integer offset = songList.getOffset();
             String url = "https://music.163.com/discover/playlist?order=hot&cat=全部&limit=35&offset="+(offset+35);
             SchedulerContext.into(request.subRequest(url));

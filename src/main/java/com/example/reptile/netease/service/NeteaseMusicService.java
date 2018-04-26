@@ -22,9 +22,7 @@ public class NeteaseMusicService {
     @Transactional
     public void saveCloudMusic(List<PlayList> list){
         if(ListUtils.isNotEmpty(list)){
-            list.forEach(playList -> {
-                neteaseMusicDao.insertOrUpdate(playList);
-            });
+            neteaseMusicDao.insertOrUpdate(list);
         }
     }
 
@@ -32,8 +30,8 @@ public class NeteaseMusicService {
         return neteaseMusicDao.getPlayListUrlAll();
     }
 
-    public void insertSong(SongDetail songDetail){
-        neteaseMusicDao.insertOrUpdateSong(songDetail);
+    public void insertSong(List<SongDetail> list){
+        neteaseMusicDao.insertOrUpdateSong(list);
     }
 
     public List<PlayList> playListPage(int page,int limit){

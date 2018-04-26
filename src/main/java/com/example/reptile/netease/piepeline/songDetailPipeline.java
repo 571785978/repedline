@@ -26,7 +26,10 @@ public class songDetailPipeline implements Pipeline<songDetail> {
         detail.setImg_url(songDetail.getImg_url());
         String albumId = songDetail.getAlbumId().split("id=")[1];
         detail.setAlbumId(albumId);
-        detail.setPlayIds(NeteaseUtil.getValue(songDetail.getId()));
-        neteaseMusicService.insertSong(detail);
+        NeteaseUtil.songList.add(detail);
+        if(NeteaseUtil.songList.size() >=100){
+            neteaseMusicService.insertSong(NeteaseUtil.songList);
+            NeteaseUtil.songList.clear();
+        }
     }
 }

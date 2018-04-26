@@ -7,7 +7,7 @@ import com.geccocrawler.gecco.spider.HtmlBean;
 import java.util.List;
 
 @Gecco(matchUrl = "https://music.163.com/song?id={id}",
-        pipelines = {"consolePipeline","songDetailPipeline"})
+        pipelines = {"songDetailPipeline"})
 public class songDetail implements HtmlBean {
 
     @Request

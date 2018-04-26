@@ -10,7 +10,7 @@ import java.util.List;
  * 单曲
  */
 @Gecco(matchUrl = "https://music.163.com/playlist?id={id}",
-        pipelines = {"consolePipeline","songPipeline"})
+        pipelines = {"songPipeline"})
 public class song implements HtmlBean {
 
     @Request
