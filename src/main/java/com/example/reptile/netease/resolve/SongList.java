@@ -14,7 +14,7 @@ import java.util.List;
  * @author
  */
 @Gecco(matchUrl = "https://music.163.com/discover/playlist?order=hot&cat=全部&limit=35&offset={offset}",
-        pipelines = {"consolePipeline","PlayListPipeline"})
+        pipelines = {"PlayListPipeline"})
 public class SongList implements HtmlBean{
 
     @RequestParameter

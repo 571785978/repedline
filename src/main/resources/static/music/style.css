@@ -1,12 +1,12 @@
 html,body{
     overflow-y: hidden;
 }
-#demo01{
+.layui-body ul{
     width: 100%;
     height:100%;
     overflow-y: auto;
 }
-#demo01 li{
+.layui-body ul li{
     display: inline-block;
     width: 140px;
     height: 188px;
@@ -22,6 +22,14 @@ html,body{
     height: 100%;
     background-position: 0 0;
 }*/
+.u-cover img{
+    width: 140px;
+    height: 140px;
+}
+.u-cover{
+    width: 140px;
+    height: 140px;
+}
 .layui-body{
     left: 0px;
 }
@@ -44,4 +52,10 @@ html,body{
 }
 #pause_player{
     display: none !important;
+}
+#songList {
+display: none;
+}
+#playListSong{
+    display: none;
 }

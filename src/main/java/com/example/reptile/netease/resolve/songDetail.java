@@ -1,9 +1,7 @@
 package com.example.reptile.netease.resolve;
 
-import com.geccocrawler.gecco.annotation.Attr;
-import com.geccocrawler.gecco.annotation.Gecco;
-import com.geccocrawler.gecco.annotation.HtmlField;
-import com.geccocrawler.gecco.annotation.RequestParameter;
+import com.geccocrawler.gecco.annotation.*;
+import com.geccocrawler.gecco.request.HttpRequest;
 import com.geccocrawler.gecco.spider.HtmlBean;
 
 import java.util.List;
@@ -11,6 +9,9 @@ import java.util.List;
 @Gecco(matchUrl = "https://music.163.com/song?id={id}",
         pipelines = {"consolePipeline","songDetailPipeline"})
 public class songDetail implements HtmlBean {
+
+    @Request
+    HttpRequest request;
 
     @RequestParameter
     private String id;
@@ -33,16 +34,12 @@ public class songDetail implements HtmlBean {
     @HtmlField(cssPath = "body > div.g-bd4.f-cb > div.g-mn4 > div > div > div.m-lycifo > div.f-cb > div.cnt > p:nth-child(3) a")
     private String albumId;
 
-    @Attr("href")
-    @HtmlField(cssPath = "body > div.g-bd4.f-cb > div.g-sd4 > div.g-wrap7 > ul.m-rctlist.f-cb li div.info p.f-thide a")
-    private List<String> playListId;
-
-    public List<String> getPlayListId() {
-        return playListId;
+    public HttpRequest getRequest() {
+        return request;
     }
 
-    public void setPlayListId(List<String> playListId) {
-        this.playListId = playListId;
+    public void setRequest(HttpRequest request) {
+        this.request = request;
     }
 
     public String getAlbumId() {

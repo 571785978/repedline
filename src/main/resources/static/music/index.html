@@ -14,13 +14,18 @@
     <!--頭部-->
     <div class="layui-header">
         <ul class="layui-nav" lay-filter="">
-            <li class="layui-nav-item"><a href="">歌单</a></li>
-            <li class="layui-nav-item layui-this"><a href="">所有单曲</a></li>
+            <li class="layui-nav-item layui-this"><a href="javascript:;" id="toPlayList">歌单</a></li>
+            <li class="layui-nav-item"><a href="javascript:;" id="toSongList">所有单曲</a></li>
         </ul>
     </div>
     <!--主體-->
     <div class="layui-body">
-        <ul class="flow-default" id="demo01" ></ul>
+        <!--歌单列表-->
+        <ul class="flow-default" id="playList" ></ul>
+        <!--全部单曲-->
+        <ul class="flow-default" id="songList" ></ul>
+        <!--歌单下的单曲-->
+        <ul class="flow-default" id="playListSong"></ul>
     </div>
 
     <!--<div class="layui-side">

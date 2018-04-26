@@ -37,10 +37,21 @@ public class NeteaseMusicService {
     }
 
     public List<PlayList> playListPage(int page,int limit){
-        return neteaseMusicDao.list(page,limit);
+        return neteaseMusicDao.playListPage(page,limit);
     }
     public int totalCountPlayList(){
         return neteaseMusicDao.getTotalCountPlayList();
     }
 
+    public int totalCountSongList(){
+        return neteaseMusicDao.getTotalCountSongList();
+    }
+
+    public List<SongDetail> songPage(int page,int limit){
+        return neteaseMusicDao.songListPage(page,limit);
+    }
+
+    public List<SongDetail> listSongPage(String listId){
+        return neteaseMusicDao.listSongPage(listId);
+    }
 }

@@ -3,6 +3,7 @@ package com.example.reptile.netease.piepeline;
 import com.example.reptile.netease.entity.SongDetail;
 import com.example.reptile.netease.resolve.songDetail;
 import com.example.reptile.netease.service.NeteaseMusicService;
+import com.example.reptile.netease.util.NeteaseUtil;
 import com.example.reptile.netease.util.SpringUtil;
 import com.geccocrawler.gecco.annotation.PipelineName;
 import com.geccocrawler.gecco.pipeline.Pipeline;
@@ -25,13 +26,7 @@ public class songDetailPipeline implements Pipeline<songDetail> {
         detail.setImg_url(songDetail.getImg_url());
         String albumId = songDetail.getAlbumId().split("id=")[1];
         detail.setAlbumId(albumId);
-        if(null != songDetail.getPlayListId()){
-            StringBuffer ids = new StringBuffer();
-            songDetail.getPlayListId().forEach(id -> {
-                ids.append(",").append(id.split("id=")[1]);
-            });
-            detail.setPlayIds(ids.toString().replaceFirst(",",""));
-            neteaseMusicService.insertSong(detail);
-        }
+        detail.setPlayIds(NeteaseUtil.getValue(songDetail.getId()));
+        neteaseMusicService.insertSong(detail);
     }
 }
