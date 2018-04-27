@@ -7,6 +7,7 @@ import com.example.reptile.netease.util.NeteaseUtil;
 import com.example.reptile.netease.util.SpringUtil;
 import com.geccocrawler.gecco.annotation.PipelineName;
 import com.geccocrawler.gecco.pipeline.Pipeline;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 @Component

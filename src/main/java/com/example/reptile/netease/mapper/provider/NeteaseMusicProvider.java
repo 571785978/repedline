@@ -18,7 +18,7 @@ public class NeteaseMusicProvider {
         stringBuffer.append("REPLACE into songlist (id,url,title,img_url) values");
         list.forEach(playList -> {
             stringBuffer.append("(");
-            stringBuffer.append("\"").append(getReplace(playList.getUrl())).append("\",")
+            stringBuffer.append("\"").append(getReplace(playList.getId())).append("\",")
                     .append("\"").append(getReplace(playList.getUrl())).append("\",")
                     .append("\"").append(getReplace(playList.getTitle())).append("\",")
                     .append("\"").append(getReplace(playList.getImg_url())).append("\"");

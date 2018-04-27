@@ -10,6 +10,7 @@ import com.geccocrawler.gecco.annotation.PipelineName;
 import com.geccocrawler.gecco.pipeline.Pipeline;
 import com.geccocrawler.gecco.request.HttpRequest;
 import com.geccocrawler.gecco.scheduler.SchedulerContext;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class PlayListPipeline implements Pipeline<SongList> {
         songList.getList().stream().forEach(songLists -> {
             songLists.getLi().stream().forEach(detail -> {
                 PlayList music = new PlayList();
-                String id = detail.getUrl().split("\\?id=")[1];
+                String id = detail.getUrl().split("id=")[1];
                 music.setId(id);
                 music.setImg_url(detail.getImageUrl());
                 music.setTitle(detail.getTitle());
