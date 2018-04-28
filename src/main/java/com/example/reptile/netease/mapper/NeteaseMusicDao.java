@@ -26,7 +26,7 @@ public interface NeteaseMusicDao extends BaseDao<SongDetail>{
     @Select("select count(*) from songlist")
     int getTotalCountPlayList();
 
-    @Select("select * from song limit #{page},#{limit}")
+    @Select("select * from song GROUP BY img_url limit #{page},#{limit}")
     List<SongDetail> songListPage(@Param("page") int page, @Param("limit") int limit);
 
     @Select("select count(*) from song")

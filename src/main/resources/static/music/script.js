@@ -1,11 +1,17 @@
 var flow;
+var songs = new Array;
+var player =new Audio();
+
 $(function () {
     //注意：导航 依赖 element 模块，否则无法进行功能性操作
     layui.use('element', function () {
         var element = layui.element;
         //…
     });
-
+    player.preload = true;
+    player.controls = true;
+    player.addEventListener('ended', playList);
+    player.loop = false;
     layui.use('flow', function(){
         var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
         flow = layui.flow;
@@ -20,8 +26,7 @@ $(function () {
                     var lis = [];
                     $.get("/platListPage?limit=35&page="+page,function(res){
                         res.data.forEach(function(item,index){
-                            var li = "<li><div class='u-cover'><img src='"+item.img_url+"'/>" +
-                                "<a title='"+item.title+"' href='javascript:;'  onclick=\"getListSong('"+item.id+"');\" ></a></div>" +
+                            var li = "<li onclick=\"getListSong('"+item.id+"');\"><div class='u-cover'><img src='"+item.img_url+"'/></div>" +
                                 "<p class='dec'><a title='"+item.title+"'  href='javascript:;' onclick=\"getListSong('"+item.id+"');\">"+item.title+"</a></p></li>";
                             lis.push(li);
                         })
@@ -41,9 +46,10 @@ $(function () {
                     var lis = [];
                     $.get("/songLIst?limit=35&page="+page,function(res){
                         res.data.forEach(function(item,index){
-                            var li = "<li><div class='u-cover'><img src='"+item.img_url+"'/>" +
-                                "<a title='"+item.name+"' href='"+item.href+"'></a></div>" +
-                                "<p class='dec'><a title='"+item.name+"' href='"+item.href+"'>"+item.name+"</a></p></li>";
+                            var li = "<li onclick=\"goPlay('"+item.href+"')\"><div class='u-cover'><img src='"+item.img_url+"'/></div>" +
+                                "<p class='dec'>" +
+                                "<a title='"+item.name+"' data-href='"+item.href+"' href='javascript:;'" +
+                                " onclick=\"goPlay('"+item.href+"')\">"+item.name+"</a></p></li>";
                             lis.push(li);
                         })
                         next(lis.join(''), page < res.count/12);
@@ -51,24 +57,22 @@ $(function () {
                 }, 500);
             }
         });
+
+        /*//注意进度条依赖 element 模块，否则无法进行正常渲染和功能性操作
+        layui.use('element', function(){
+            var element = layui.element;
+        });*/
+
     });
 
-    function swtichPlayButton() {
-        var goOn_player = $("#goOn_player").css('display');
-        var pause_player = $("#pause_player").css('display');
-        if(goOn_player =="inline" && pause_player =="none"){
-            $("#goOn_player").css("display","none");
-            $("#pause_player").css("cssText","display:inline !important;");
-        }else if(pause_player =="inline" && goOn_player =="none"){
-            $("#pause_player").css("cssText","display:none !important;");
-            $("#goOn_player").css("display","inline");
-        }
-    }
+
     $("#goOn_player").on("click",function () {
         swtichPlayButton();
+        playList();
     });
     $("#pause_player").on("click",function () {
         swtichPlayButton();
+        pause();
     });
 
     $("#toPlayList").on("click",function () {
@@ -82,7 +86,43 @@ $(function () {
         $("#playListSong").hide();
     })
 
+    player.addEventListener("play",function(){
+        playList();
+    });
+    $("#audioPlayer").append(player);
+
 })
+function swtichPlayButton() {
+    var goOn_player = $("#goOn_player").css('display');
+    var pause_player = $("#pause_player").css('display');
+    if(goOn_player =="inline" && pause_player =="none"){
+        $("#goOn_player").css("display","none");
+        $("#pause_player").css("cssText","display:inline !important;");
+    }else if(pause_player =="inline" && goOn_player =="none"){
+        $("#pause_player").css("cssText","display:none !important;");
+        $("#goOn_player").css("display","inline");
+    }
+
+}
+function pause(){
+    player.pause();
+}
+function goPlay(src){
+    player.src = src;
+    player.play();
+}
+function playList() {
+    if("" == player.src || null ==player.src){
+        if(songs.length<=0){
+            $("#songList li").each(function (value) {
+                var url = $(this).find("a").attr("data-href");
+                songs.push(url);
+            });
+        }
+        player.src = songs.pop();
+    }
+    player.play();
+}
 function getListSong(listId) {
     var obj = $("#playListSong");
     obj.empty();
@@ -100,13 +140,15 @@ function getListSong(listId) {
                 var lis = [];
                 $.get("/playListSong?listId="+listId,function(res){
                     res.data.forEach(function(item,index){
-                        var li = "<li><div class='u-cover'><img src='"+item.img_url+"'/>" +
-                            "<a title='"+item.title+"' href='"+item.url+"'></a></div>" +
-                            "<p class='dec'><a title='"+item.title+"' href='"+item.url+"'>"+item.title+"</a></p></li>";
+                        var li = "<li onclick=\"clickA(this)\"><div class='u-cover'><img src='"+item.img_url+"'/>" +
+                            "<a title='"+item.name+"' data-href='"+item.href+"' href='javascript:;' onclick=\"goPlay('"+item.href+"')\"></a></div>" +
+                            "<p class='dec'><a title='"+item.name+"' data-href='"+item.href+"' href='javascript:;' onclick=\"goPlay('"+item.href+"')\">"+item.name+"</a></p></li>";
                         lis.push(li);
                     })
+                    next(lis.join(''), res.data.length>0);
                 })
             }, 500);
         }
     });
 }
+

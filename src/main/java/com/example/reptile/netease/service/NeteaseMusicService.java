@@ -19,7 +19,6 @@ public class NeteaseMusicService {
     @Autowired
     NeteaseMusicDao neteaseMusicDao;
 
-    @Transactional
     public void saveCloudMusic(List<PlayList> list){
         if(ListUtils.isNotEmpty(list)){
             neteaseMusicDao.insertOrUpdate(list);
